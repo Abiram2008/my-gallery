@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Glass Gallery</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#000);
+    background-size:400% 400%;
+    animation:bg 12s ease infinite;
+    color:white;
+    overflow-x:hidden;
+}
+
+@keyframes bg{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* HERO */
+.hero{
+    height:50vh;
+    background:url('https://source.unsplash.com/1600x900/?dark,abstract') center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+}
+
+.hero h1{
+    position:relative;
+    z-index:1;
+    font-size:3rem;
+    letter-spacing:3px;
+}
+
+/* FILTERS */
+.filters{
+    text-align:center;
+    padding:30px 0;
+}
+
+.filters button{
+    margin:8px;
+    padding:10px 20px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    color:white;
+    backdrop-filter:blur(10px);
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    transition:0.3s;
+}
+
+.filters button:hover{
+    background:rgba(255,255,255,0.3);
+}
+
+/* GALLERY */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    padding:20px 40px 60px;
+}
+
+.card{
+    border-radius:15px;
+    overflow:hidden;
+    cursor:pointer;
+    backdrop-filter:blur(12px);
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    transform:translateY(50px);
+    opacity:0;
+    transition:0.6s ease;
+}
+
+.card.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+.image-wrapper{
+    position:relative;
+}
+
+.main-img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    display:block;
+    transition:0.5s;
+}
+
+.card:hover .main-img{
+    transform:scale(1.1);
+}
+
+/* IMAGE INSIDE IMAGE */
+.overlay-img{
+    position:absolute;
+    bottom:15px;
+    right:15px;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    border:3px solid white;
+    object-fit:cover;
+    box-shadow:0 5px 15px rgba(0,0,0,0.5);
+    transition:0.3s;
+}
+
+.card:hover .overlay-img{
+    transform:scale(1.15);
+}
+
+.caption{
+    text-align:center;
+    padding:10px;
+    background:rgba(0,0,0,0.6);
+}
+
+/* LIGHTBOX */
+.lightbox{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.95);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:1000;
+}
+
+.lightbox img{
+    max-width:90%;
+    max-height:80%;
+    border-radius:10px;
+}
+
+.nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:40px;
+    cursor:pointer;
+    padding:20px;
+}
+
+.prev{ left:30px; }
+.next{ right:30px; }
+
+.close{
+    position:absolute;
+    top:30px;
+    right:40px;
+    font-size:35px;
+    cursor:pointer;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+    .hero h1{ font-size:2rem; }
+    .main-img{ height:180px; }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+    <h1>💎 Ultimate Glass Gallery</h1>
+</section>
+
+<div class="filters">
+    <button onclick="filter('all')">All</button>
+    <button onclick="filter('nature')">Nature</button>
+    <button onclick="filter('city')">City</button>
+    <button onclick="filter('tech')">Tech</button>
+</div>
+
+<section class="gallery">
+
+<!-- CARD EXAMPLES -->
+<div class="card nature">
+    <div class="image-wrapper">
+        <img src="https://wallpaperaccess.com/full/8230000.jpg" class="main-img">
+        <img src=https://tse3.mm.bing.net/th/id/OIP.c6cKmn3eAYZ-4v95LmG0CgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" class="overlay-img">
+    </div>
+    <div class="caption">Nature</div>
+</div>
+
+<div class="card city">
+    <div class="image-wrapper">
+        <img src="https://tse4.mm.bing.net/th/id/OIP.KlT0BcUCYeWSaC9I_5uEwwHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" class="main-img">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.d_qYvquyENmjFxgVYVYB3gHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" class="overlay-img">
+    </div>
+    <div class="caption">City</div>
+</div>
+
+<div class="card tech">
+    <div class="image-wrapper">
+        <img src="https://img.freepik.com/premium-photo/artificial-intelligencetechnology-hd-8k-wallpaper-stock-photographic-image_973183-8141.jpg" class="main-img">
+        <img src="https://th.bing.com/th/id/OIP.hdOpfmJOu8oDCuHodM4yKgHaEK?w=302&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" class="overlay-img">
+    </div>
+    <div class="caption">Technology</div>
+</div>
+
+<div class="card nature">
+    <div class="image-wrapper">
+        <img src="https://png.pngtree.com/thumb_back/fw800/background/20230331/pngtree-beautiful-forest-morning-light-background-image_2127481.jpg" class="main-img">
+        <img src="https://png.pngtree.com/thumb_back/fw800/background/20230331/pngtree-beautiful-forest-morning-light-background-image_2127481.jpg" class="overlay-img">
+    </div>
+    <div class="caption">Forest</div>
+</div>
+
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <span class="nav prev" onclick="change(-1)">&#10094;</span>
+    <img id="lightbox-img">
+    <span class="nav next" onclick="change(1)">&#10095;</span>
+</div>
+
+<script>
+const cards=document.querySelectorAll(".card");
+const images=[...document.querySelectorAll(".main-img")];
+const lightbox=document.getElementById("lightbox");
+const lightboxImg=document.getElementById("lightbox-img");
+let currentIndex=0;
+
+/* Lightbox */
+images.forEach((img,index)=>{
+    img.addEventListener("click",()=>{
+        currentIndex=index;
+        showImage();
+        lightbox.style.display="flex";
+    });
+});
+
+function showImage(){
+    lightboxImg.src=images[currentIndex].src;
+}
+
+function change(step){
+    currentIndex+=step;
+    if(currentIndex<0) currentIndex=images.length-1;
+    if(currentIndex>=images.length) currentIndex=0;
+    showImage();
+}
+
+function closeLightbox(){
+    lightbox.style.display="none";
+}
+
+/* Filter */
+function filter(category){
+    cards.forEach(card=>{
+        if(category==="all" || card.classList.contains(category)){
+            card.style.display="block";
+        }else{
+            card.style.display="none";
+        }
+    });
+}
+
+/* Scroll Reveal */
+const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        }
+    });
+},{threshold:0.1});
+
+cards.forEach(card=>{
+    observer.observe(card);
+});
+</script>
+
+</body>
+</html>
