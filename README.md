@@ -111,4 +111,4 @@ Perfect for:
 Abiram
 AI & ML Enthusiast | Frontend Developer
 # my-gallery
-output link 
+output link  https://abiram2008.github.io/my-gallery/
